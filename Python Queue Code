@@ -1,0 +1,83 @@
+import names
+import random
+import time
+
+num = int(input("Enter A Number to Generate Number of ID's: ")) # Input For Getdata Function, It Will Generate However Many Staff You Input
+class Staff:
+    def __init__(self, name, staff_id):
+        self.name = name
+        self.staff_id = staff_id
+
+    def getdata(self, dict): # Generate Random Names, Just Give The First Names
+        random_order = num
+        random_num = num
+        for i in range(0, random_num):
+            number = random.randint(0, random_order)
+            name = names.get_first_name(None)
+            dict[name] = number
+        return dict
+
+    def bubble_sort(self, k): # Bubble Sort The Generated List of Names In Alphabetical Order
+        start = time.time()
+        for i in range(1, len(k)):
+            for j in range(len(k) - i):
+                if k[j].name > k[j + 1].name:
+                    k[j], k[j + 1] = k[j + 1], k[j]
+        print("Time Taken For Sorting: ", time.time()-start)
+        return k #
+
+    def linear_search(self, arr, x): # Search Through The Generated List of Employees and Search For A Specific Employee
+        start0 = time.time()
+        for i in arr:
+            if i.name == x:
+                print("Time Taken For Searching: ", time.time() - start0)
+                return i.staff_id
+        return "user is not found"
+
+class Queue: # Lunch Line Queue - Pass The Generated Staff Members Into The Queue
+    def __init__(self):
+        self.staff = []
+
+    def empty_queue(self): # Empty Queue - Staff Members Will Be Passed Into This Empty List
+        if self.staff == []:
+            return True
+        else:
+            return False
+
+    def push(self, item): # Add More Staff Members Into The List
+        return self.staff.append(item)
+
+    def pop(self): # Remove A Staff Member From The List, Otherwise State That There Are No Staff In The Queue
+        if self.empty_queue() == False:
+            self.staff.pop(0)
+        else:
+            print("Queue Is Empty")
+
+def add_staff(dict, list):
+    print(dict)
+    for i in dict:
+        single_item = Staff(i, dict[i])
+        list.append(single_item)
+    return list
+
+#======================================================================================================================#
+
+list = []
+staff = Staff(Staff, staff_id=Staff)
+
+dict = {}
+dict = staff.getdata(dict)
+
+staff_objectes = add_staff(dict,list)
+sorted_list = Staff.bubble_sort(staff,staff_objectes)
+
+x = sorted_list[-1].name
+search = Staff.linear_search(staff, sorted_list, x)
+
+starttime = time.time()
+queue = Queue()
+
+for i in sorted_list:
+    queue.push(i)
+end = time.time()
+print("Queue Time Is: ", end-starttime)
